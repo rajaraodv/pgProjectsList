@@ -1,4 +1,4 @@
-<h1>A Node.js app that ports the <a href='http://angularjs.org/#mongolab-js' target='_blank'>AngularJS Todo app</a> to use MySQL backend(instead of MongoDB)</h1>
+<h1>A Node.js app that ports the <a href='http://angularjs.org/#mongolab-js' target='_blank'>AngularJS Todo app</a> to use Postgres backend(instead of MongoDB)</h1>
 
 <p align="center">
 <span style='align:left'> <img src="https://raw.github.com/rajaraodv/pgtodo/master/gitImgs/appImg0.png" height="250px" width="350px" /></span><span style='align:left'>
@@ -62,7 +62,7 @@ What kind?> 4      <--------------- Select & add Postgresql service
 Name?> postgres-ccc0e <-- Just a name of the PG service
 
 Creating service postgres-ccc0e... OK
-Binding mysql-ccc0e to pgtodo... OK
+Binding postgres-ccc0e to pgtodo... OK
 Create another service?> n
 
 Bind other services to application?> n
