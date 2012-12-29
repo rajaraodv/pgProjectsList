@@ -1,4 +1,4 @@
-angular.module('project', ['mysql']).
+angular.module('project', ['pg']).
   config(function($routeProvider) {
     $routeProvider.
       when('/', {controller:ListCtrl, templateUrl:'list.html'}).

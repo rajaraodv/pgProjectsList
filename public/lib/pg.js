@@ -1,5 +1,5 @@
 //Update this to use mysql
-angular.module('mysql', ['ngResource']).
+angular.module('pg', ['ngResource']).
     factory('Project', function ($resource) {
         var Project = $resource('/todo', {}, {update:{method:'PUT'}});
 
