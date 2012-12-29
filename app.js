@@ -1,16 +1,32 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    pg = require('pg').native,
+    pg = require('pg'),
     lib = require('./db.js');
 
 //This config will be auto-swapped by CF w/ proper conf. (PS: auto-reconfiguration)
 var conString = "pg://postgres:test@localhost/todoDB";
 
-pg.connect(conString, function (err, conn) {
-    if (err)  return console.log(err);
+//Caution: Don't use "pg.connect" if we plan to use a single-Postgres client (instead use new pg.Client())
+//pg.connect(conString, function (err, conn) {
+//    if (err)  return console.log(err);
+//
+//    connection = conn;
+//    lib.setupDBAndTable(connection);
+//});
 
-    connection = conn;
+//You can use "pg.connect" to use connection pool. But in that case you should
+// do pg.connect() and perform queries w/in its callback for EVERY query like:
+// pg.connect("connStr", function(err, connection) {
+//   connection.query(query1)
+//}
+// pg.connect("connStr", function(err, connection) {
+//   connection.query(query2)
+//}
+
+//Use single connection for all queries
+var connection = new pg.Client(conString);
+connection.connect(function () {
     lib.setupDBAndTable(connection);
 });
 
@@ -36,11 +52,11 @@ app.post('/todo', function (req, res) {
     var b = req.body;
     var task = {name:b.name, site:b.site, description:b.description};
 
-    lib.addTask(task, function (err, info) {
+    lib.addTask(task, function (err, id) {
         if (err) {
             return res.json({"error":"something went wrong" + err});
         }
-        task.id = info.insertId;
+        task.id = id;//send task id of newly created task
         res.json(task);
     });
 });
@@ -53,9 +69,7 @@ app.get('/todo', function (req, res) {
             return err ? res.json(err) : res.json(data.rows && data.rows[0]);
         });
     } else { //return all tasks
-        console.log('get all tasks');
         lib.getTasks(function (err, data) {
-            console.log("*****" + data.rows);
             return err ? res.json(err) : res.json(data.rows);
         });
     }
@@ -70,6 +84,7 @@ app.put('/todo', function (req, res) {
         if (err) {
             return res.json({"error":"something went wrong" + err});
         }
+
         res.json(task);
     });
 });

@@ -18,14 +18,14 @@ function initTodosTable() {
         createTodosTable();
     });
 }
-
+//Create 'todos' table schema.
 function createTodosTable() {
     var sql = "" +
         "CREATE TABLE todos(" +
         " id SERIAL," +
         " name VARCHAR(50) NOT NULL default ''," +
         " site VARCHAR(50) NOT NULL default ''," +
-        " description VARCHAR(200) NOT NULL default ''," +
+        " description VARCHAR(200) default ''," +
         " PRIMARY KEY (id)" +
         ");";
 
@@ -35,7 +35,18 @@ function createTodosTable() {
 }
 
 exports.addTask = function (task, callback) {
-    connection.query("INSERT INTO todos (name, site, description) VALUES ($1, $2, $3)", [task.name, task.site, task.description], callback);
+    //first create a next id (coz PG doesn't return it after creating a row in callback)
+    connection.query("SELECT nextval('todos_id_seq')", function (err, result) {
+        if(err) return callback(err);
+
+        var nextId = result.rows[0].nextval;
+
+        //then insert task w/ nextId
+        connection.query("INSERT INTO todos (id, name, site, description) VALUES ($1, $2, $3, $4)",
+            [nextId, task.name, task.site, task.description], function (err) {
+                callback(err, nextId); //send back nextId
+            });
+    });
 };
 
 exports.updateTask = function (id, task, callback) {
@@ -43,7 +54,7 @@ exports.updateTask = function (id, task, callback) {
         + "', site='" + task.site
         + "', description='" + task.description
         + "' WHERE id=" + id;
-     console.log(sql);
+
     connection.query(sql, callback);
 };
 
