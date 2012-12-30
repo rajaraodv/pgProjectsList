@@ -2,7 +2,7 @@ var pg = require('pg');
 //or native libpq bindings
 //var pg = require('pg').native
 
-var conString = "pg://postgres:test@localhost/postgres";
+var conString = "pg://postgres:test@localhost/projectsDB";
 
 //error handling omitted
 pg.connect(conString, function (err, client) {

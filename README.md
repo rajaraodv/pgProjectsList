@@ -1,13 +1,13 @@
-<h1>A Node.js app that ports the <a href='http://angularjs.org/#mongolab-js' target='_blank'>AngularJS Todo app</a> to use Postgres backend(instead of MongoDB)</h1>
+<h1>A Node.js app that ports the <a href='http://angularjs.org/#mongolab-js' target='_blank'>AngularJS Projects app</a> to use Postgres backend(instead of MongoDB)</h1>
 
 <p align="center">
-<span style='align:left'> <img src="https://raw.github.com/rajaraodv/pgtodo/master/gitImgs/appImg0.png" height="250px" width="350px" /></span><span style='align:left'>
-<img src="https://raw.github.com/rajaraodv/pgtodo/master/gitImgs/appImg1.png" height="250px" width="350px" /></span>
+<span style='align:left'> <img src="https://raw.github.com/rajaraodv/pgProjectsList/master/gitImgs/appImg0.png" height="250px" width="350px" /></span><span style='align:left'>
+<img src="https://raw.github.com/rajaraodv/pgProjectsList/master/gitImgs/appImg1.png" height="250px" width="350px" /></span>
 </p>
 
 #### Running it locally ####
-* Clone the app to `pgtodo` folder
-* `cd pgtodo` folder
+* Clone the app to `pgProjectsList` folder
+* `cd pgProjectsList` folder
 * `npm install`
 * `node app.js`
 * open browser at `localhost:3000`
@@ -15,12 +15,12 @@
 
 #### Running it on Cloud Foundry ####
 
-* Clone the app to `pgtodo` folder
-* `cd pgtodo` folder
+* Clone the app to `pgProjectsList` folder
+* `cd pgProjectsList` folder
 * `npm install`
 
 ```
-> vmc push pgtodo
+> vmc push pgProjectsList
 Instances> 1
 
 1: node
@@ -39,13 +39,13 @@ Runtime> 3  <---- Select Node.js 0.8v of runtime
 4: 512M
 Memory Limit> 64M <----- 64MB memory
 
-Creating pgtodo... OK
+Creating pgProjectsList... OK
 
-1: pgtodo.cloudfoundry.com
+1: pgProjectsList.cloudfoundry.com
 2: none
-URL> pgtodo.cloudfoundry.com   <---------This'll be the url of your app
+URL> pgProjectsList.cloudfoundry.com   <---------This will be the url of your app
 
-Updating pgtodo... OK
+Updating pgProjectsList... OK
 
 Create services for application?> y
 
@@ -62,16 +62,16 @@ What kind?> 4      <--------------- Select & add Postgresql service
 Name?> postgres-ccc0e <-- Just a name of the PG service
 
 Creating service postgres-ccc0e... OK
-Binding postgres-ccc0e to pgtodo... OK
+Binding postgres-ccc0e to pgProjectsList... OK
 Create another service?> n
 
 Bind other services to application?> n
 
 Save configuration?> n
 
-Uploading pgtodo... OK
-Starting pgtodo... OK
-Checking pgtodo... OK
+Uploading pgProjectsList... OK
+Starting pgProjectsList... OK
+Checking pgProjectsList... OK
 ```
 
 ### Notes ###

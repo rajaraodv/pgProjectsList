@@ -5,7 +5,7 @@ var express = require('express'),
     lib = require('./db.js');
 
 //This config will be auto-swapped by CF w/ proper conf. (PS: auto-reconfiguration)
-var conString = "pg://postgres:test@localhost/todoDB";
+var conString = "pg://postgres:test@localhost/projectsDB";
 
 //Caution: Don't use "pg.connect" if we plan to use a single-Postgres client (instead use new pg.Client())
 //pg.connect(conString, function (err, conn) {
@@ -48,51 +48,51 @@ app.configure('development', function () {
 });
 
 //Create
-app.post('/todo', function (req, res) {
+app.post('/project', function (req, res) {
     var b = req.body;
-    var task = {name:b.name, site:b.site, description:b.description};
+    var project = {name:b.name, site:b.site, description:b.description};
 
-    lib.addTask(task, function (err, id) {
+    lib.addProject(project, function (err, id) {
         if (err) {
             return res.json({"error":"something went wrong" + err});
         }
-        task.id = id;//send task id of newly created task
-        res.json(task);
+        project.id = id;//send project id of newly created project
+        res.json(project);
     });
 });
 
 //Read
-app.get('/todo', function (req, res) {
-    //if id is passed, return that task
+app.get('/project', function (req, res) {
+    //if id is passed, return that project
     if (req.query.id) {
-        lib.getTask(req.query.id, function (err, data) {
+        lib.getProject(req.query.id, function (err, data) {
             return err ? res.json(err) : res.json(data.rows && data.rows[0]);
         });
-    } else { //return all tasks
-        lib.getTasks(function (err, data) {
+    } else { //return all projects
+        lib.getProjects(function (err, data) {
             return err ? res.json(err) : res.json(data.rows);
         });
     }
 });
 
 //Update
-app.put('/todo', function (req, res) {
+app.put('/project', function (req, res) {
     var b = req.body;
-    var task = {name:b.name, site:b.site, description:b.description};
+    var project = {name:b.name, site:b.site, description:b.description};
 
-    lib.updateTask(req.query.id, task, function (err, info) {
+    lib.updateProject(req.query.id, project, function (err, info) {
         if (err) {
             return res.json({"error":"something went wrong" + err});
         }
 
-        res.json(task);
+        res.json(project);
     });
 });
 
 
 //Delete
-app.delete('/todo', function (req, res) {
-    lib.deleteTask(req.query.id, function (err, info) {
+app.delete('/project', function (req, res) {
+    lib.deleteProject(req.query.id, function (err, info) {
         res.json({"Error":err});
     });
 });
