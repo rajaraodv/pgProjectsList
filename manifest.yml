@@ -1,0 +1,13 @@
+---
+applications:
+- name: projects
+  memory: 128M
+  instances: 1
+  url: projects.${target-base}
+  path: .
+  services:
+    postgresql-projects:
+      label: postgresql
+      provider: core
+      version: '9.2'
+      plan: default
