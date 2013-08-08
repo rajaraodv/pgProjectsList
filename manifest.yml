@@ -3,7 +3,6 @@ applications:
 - name: projects
   memory: 128M
   instances: 1
-  url: projects.${target-base}
   path: .
   services:
     postgresql-projects:
