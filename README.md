@@ -20,58 +20,26 @@
 * `npm install`
 
 ```
-> vmc push pgProjectsList
-Instances> 1
+> cf push
+Using manifest file manifest.yml
 
-1: node
-2: other
-Framework> node  <---- Select Node.js framework
+Creating projects... OK
 
-1: node
-2: node06
-3: node08
-4: other
-Runtime> 3  <---- Select Node.js 0.8v of runtime
-
-1: 64M
-2: 128M
-3: 256M
-4: 512M
-Memory Limit> 64M <----- 64MB memory
-
-Creating pgProjectsList... OK
-
-1: pgProjectsList.cloudfoundry.com
+1: projects
 2: none
-URL> pgProjectsList.cloudfoundry.com   <---------This will be the url of your app
+Subdomain> projects
 
-Updating pgProjectsList... OK
+1: yourdomain.com
+2: none
+Domain> yourdomain.com
 
-Create services for application?> y
+Binding projects.yourdomain.com to projects... OK
+Creating service postgresql-projects... OK
+Binding postgresql-projects to projects... OK
+Uploading projects... OK
+Preparing to start projects... OK
+...
 
-1: blob 0.51
-2: mongodb 2.0
-3: mysql 5.1
-4: postgresql 9.0
-5: rabbitmq 2.4
-6: redis 2.4
-7: redis 2.2
-8: redis 2.6
-What kind?> 4      <--------------- Select & add Postgresql service
-
-Name?> postgres-ccc0e <-- Just a name of the PG service
-
-Creating service postgres-ccc0e... OK
-Binding postgres-ccc0e to pgProjectsList... OK
-Create another service?> n
-
-Bind other services to application?> n
-
-Save configuration?> n
-
-Uploading pgProjectsList... OK
-Starting pgProjectsList... OK
-Checking pgProjectsList... OK
 ```
 
 ### Notes ###
